@@ -32,7 +32,6 @@
   },
   "devDependencies": {
     "@shopify/hydrogen-react": "^2025.10.0",
-    "@tailwindcss/postcss": "^4.1.18",
     "@types/lodash.debounce": "^4.0.9",
     "@types/lodash.throttle": "^4.1.9",
     "@types/node": "^20.19.32",
@@ -46,7 +45,7 @@
     "postcss": "^8.5.6",
     "prettier": "^3.8.1",
     "prettier-plugin-tailwindcss": "^0.7.2",
-    "tailwindcss": "^4",
+    "tailwindcss": "^3.4.1",
     "typescript": "^5"
   }
 }
