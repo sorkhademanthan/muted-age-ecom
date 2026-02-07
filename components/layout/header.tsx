@@ -27,96 +27,37 @@ export function Header() {
   }, []);
 
   return (
-    <header 
-      className={`
-        fixed top-0 z-50 w-full transition-all duration-500 ease-in-out
-        ${isScrolled 
-          ? 'bg-white/90 backdrop-blur-md border-b border-neutral-100 py-4' 
-          : 'bg-transparent py-6'}
-      `}
-    >
-      <nav className="mx-auto max-w-[1800px] px-6 md:px-12">
-        <div className="flex items-center justify-between">
-          
-          {/* LEFT: Mobile Menu & Search */}
-          <div className="flex items-center gap-6 flex-1">
-            {/* Mobile Menu Trigger */}
-            <button
-              onClick={toggleMobileMenu}
-              className="lg:hidden -ml-2 p-2 text-black hover:opacity-60 transition-opacity"
-              aria-label="Toggle menu"
-            >
-              <Bars3Icon className="h-6 w-6" strokeWidth={1} />
-            </button>
+    <header className="sticky top-0 z-40 w-full border-b border-gray-200 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80" role="banner">
+      <nav className="mx-auto max-w-7xl px-6 lg:px-8" role="navigation" aria-label="Main navigation">
+        <div className="flex h-20 items-center justify-between">
+          {/* Mobile Menu Button */}
+          <button
+            onClick={toggleMobileMenu}
+            className="lg:hidden -ml-2 p-2 text-gray-700 hover:text-black transition-colors"
+            aria-label="Open navigation menu"
+            aria-expanded={false}
+            type="button"
+          >
+            <Bars3Icon className="h-6 w-6" aria-hidden="true" />
+          </button>
 
-            {/* Desktop Search Trigger */}
-            <button
-              onClick={() => setSearchOpen(true)}
-              className="hidden lg:flex items-center gap-2 group"
-              aria-label="Search"
-            >
-              <MagnifyingGlassIcon className="h-5 w-5 group-hover:opacity-50 transition-opacity" strokeWidth={1.5} />
-              <span className="text-[10px] uppercase tracking-widest font-bold group-hover:opacity-50 transition-opacity">
-                Search
-              </span>
-            </button>
-            
-            {/* Desktop Left Nav (Hidden on Mobile) */}
-            <div className="hidden lg:flex gap-8 ml-8">
-              {['Men', 'Women', 'Accessories'].map((item) => (
-                <Link
-                  key={item}
-                  href={`/collections/${item.toLowerCase()}`}
-                  className="text-[10px] uppercase tracking-[0.2em] font-bold hover:text-neutral-500 transition-colors"
-                >
-                  {item}
-                </Link>
-              ))}
-            </div>
-          </div>
-
-          {/* CENTER: Logo */}
-          <div className="flex-0 text-center">
-            <Link href="/" className="block">
-              <span className={`
-                font-bold tracking-tighter uppercase transition-all duration-500
-                ${isScrolled ? 'text-2xl' : 'text-3xl md:text-4xl'}
-              `}>
-                {siteConfig.name}
-              </span>
-            </Link>
-          </div>
-
-          {/* RIGHT: Cart & Actions */}
-          <div className="flex items-center justify-end gap-6 flex-1">
-            {/* Login (Optional - can add later) */}
-            <Link 
-              href="/account" 
-              className="hidden lg:block text-[10px] uppercase tracking-widest font-bold hover:text-neutral-500 transition-colors"
-            >
-              Account
-            </Link>
-
-            {/* Cart - Now links to /cart page */}
-            <Link 
-              href="/cart"
-              className="relative p-2 text-gray-700 hover:text-black transition-colors group flex items-center justify-center"
-              aria-label="Shopping cart"
-            >
-              <ShoppingBagIcon className="h-6 w-6" strokeWidth={1.5} />
-              {mounted && itemCount > 0 && (
-                <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-black text-[10px] font-medium text-white">
-                  {itemCount > 9 ? '9+' : itemCount}
-                </span>
-              )}
-            </Link>
-          </div>
+          {/* Logo */}
+          <Link 
+            href="/" 
+            className="absolute left-1/2 -translate-x-1/2 lg:relative lg:left-auto lg:translate-x-0"
+            aria-label={`${siteConfig.name} - Home`}
+          >
+            <span className="text-2xl font-bold tracking-tighter">
+              {siteConfig.name.toUpperCase()}
+            </span>
+          </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex lg:gap-10 lg:absolute lg:left-1/2 lg:-translate-x-1/2">
             <Link
               href="/collections/all-products"
               className="text-sm font-medium text-gray-700 hover:text-black transition-colors relative group"
+              aria-label="All Products"
             >
               Shop All
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-black transition-all group-hover:w-full" />
@@ -124,6 +65,7 @@ export function Header() {
             <Link
               href="/collections/mens"
               className="text-sm font-medium text-gray-700 hover:text-black transition-colors relative group"
+              aria-label="Men's Collection"
             >
               Men
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-black transition-all group-hover:w-full" />
@@ -131,6 +73,7 @@ export function Header() {
             <Link
               href="/collections/womens"
               className="text-sm font-medium text-gray-700 hover:text-black transition-colors relative group"
+              aria-label="Women's Collection"
             >
               Women
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-black transition-all group-hover:w-full" />
@@ -138,12 +81,42 @@ export function Header() {
             <Link
               href="/collections/accessories"
               className="text-sm font-medium text-gray-700 hover:text-black transition-colors relative group"
+              aria-label="Accessories Collection"
             >
               Accessories
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-black transition-all group-hover:w-full" />
             </Link>
           </div>
 
+          {/* Right Actions */}
+          <div className="flex items-center gap-4">
+            {/* Search */}
+            <button
+              onClick={() => setSearchOpen(true)}
+              className="p-2 text-gray-700 hover:text-black transition-colors"
+              aria-label="Search products"
+              type="button"
+            >
+              <MagnifyingGlassIcon className="h-6 w-6" strokeWidth={1.5} aria-hidden="true" />
+            </button>
+
+            {/* Cart with Better Badge */}
+            <Link 
+              href="/cart"
+              className="relative p-2 text-gray-700 hover:text-black transition-colors group flex items-center justify-center"
+              aria-label={`Shopping cart with ${itemCount} items`}
+            >
+              <ShoppingBagIcon className="h-6 w-6" strokeWidth={1.5} aria-hidden="true" />
+              {mounted && itemCount > 0 && (
+                <span 
+                  className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-black text-[10px] font-medium text-white animate-fade-in"
+                  aria-label={`${itemCount} items in cart`}
+                >
+                  {itemCount > 9 ? '9+' : itemCount}
+                </span>
+              )}
+            </Link>
+          </div>
         </div>
       </nav>
     </header>

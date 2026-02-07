@@ -36,13 +36,13 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
 
   return (
     <div
-      className="group relative"
+      className="group relative transform transition-all duration-300 hover:-translate-y-1"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       <Link href={`/products/${product.handle}`}>
         {/* Image Container */}
-        <div className="relative aspect-square overflow-hidden rounded-lg bg-gray-100">
+        <div className="relative aspect-[3/4] overflow-hidden rounded-xl bg-gray-100 mb-4 shadow-sm group-hover:shadow-xl transition-shadow duration-300">
           {/* Primary Image */}
           {firstImage && (
             <Image
@@ -72,35 +72,29 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
             />
           )}
 
-          {/* Badges */}
-          <div className="absolute top-2 left-2 flex flex-col gap-2">
+          {/* Badges with animation */}
+          <div className="absolute top-3 left-3 flex flex-col gap-2 z-10">
             {!product.availableForSale && (
-              <Badge variant="error">Sold Out</Badge>
+              <Badge variant="error" className="text-xs animate-fade-in">
+                Sold Out
+              </Badge>
             )}
-            {hasDiscount && <Badge variant="success">Sale</Badge>}
+            {hasDiscount && (
+              <Badge variant="success" className="text-xs animate-fade-in">
+                Sale
+              </Badge>
+            )}
           </div>
 
-          {/* Quick Add Button */}
-          <div
-            className={cn(
-              'absolute bottom-0 left-0 right-0 p-4 transition-all duration-300',
-              isHovered ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'
-            )}
-          >
-            <Button
-              onClick={handleQuickAdd}
-              disabled={!product.availableForSale || isLoading}
-              fullWidth
-              size="sm"
-            >
-              Quick Add
-            </Button>
-          </div>
+          {/* Quick View on Hover - Premium Touch */}
+          <div className={cn(
+            'absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300 pointer-events-none'
+          )} />
         </div>
 
-        {/* Product Info */}
-        <div className="mt-4 space-y-2">
-          <h3 className="text-sm font-medium text-gray-900 line-clamp-2">
+        {/* Product Info with Stagger Animation */}
+        <div className="space-y-2">
+          <h3 className="text-sm font-medium text-gray-900 line-clamp-2 group-hover:text-gray-600 transition-colors duration-200">
             {product.title}
           </h3>
 
@@ -124,6 +118,35 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
           )}
         </div>
       </Link>
+
+      {/* Add to Cart Button with Better States */}
+      <div className="mt-4">
+        <Button
+          onClick={handleQuickAdd}
+          disabled={!product.availableForSale || isLoading}
+          fullWidth
+          size="md"
+          className={cn(
+            "bg-black text-white hover:bg-gray-800 transition-all duration-200",
+            "transform active:scale-95",
+            isLoading && "cursor-wait opacity-75"
+          )}
+        >
+          {isLoading ? (
+            <span className="flex items-center gap-2">
+              <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+              </svg>
+              Adding...
+            </span>
+          ) : !product.availableForSale ? (
+            'Sold Out'
+          ) : (
+            'Add to Cart'
+          )}
+        </Button>
+      </div>
     </div>
   );
 }

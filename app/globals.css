@@ -107,6 +107,59 @@ body {
   animation: slideLeft 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
+/* 5. Premium Page Transitions */
+@keyframes pageEnter {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-transition {
+  animation: pageEnter 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* 6. Smooth Image Loading */
+img {
+  transition: opacity 0.3s ease-in-out;
+}
+
+img[loading="lazy"] {
+  opacity: 0;
+}
+
+img.loaded {
+  opacity: 1;
+}
+
+/* 7. Focus Styles for Accessibility */
+*:focus-visible {
+  outline: 2px solid #000;
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid #000;
+  outline-offset: 2px;
+}
+
+/* 8. Reduced Motion for Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
 /* Premium Typography */
 h1, h2, h3, h4, h5, h6 {
   font-weight: 700;

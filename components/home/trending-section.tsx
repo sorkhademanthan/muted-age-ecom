@@ -3,7 +3,8 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { ProductCard } from '@/components/product/product-card';
-import { Loading } from '@/components/ui/loading';
+import { ProductGridSkeleton } from '@/components/ui/skeleton';
+import { Button } from '@/components/ui/button';
 import type { Product } from '@/lib/shopify/types';
 
 export function TrendingSection() {
@@ -27,45 +28,51 @@ export function TrendingSection() {
     fetchProducts();
   }, []);
 
-  if (loading) {
-    return (
-      <section className="py-24 w-full bg-white min-h-[500px] flex items-center justify-center">
-        <Loading size="lg" />
-      </section>
-    );
-  }
-
   return (
-    <section className="py-32 w-full bg-white">
-      <div className="max-w-[1800px] mx-auto px-6 md:px-12">
-        {/* Minimal Header */}
-        <div className="flex flex-col md:flex-row justify-between items-end mb-16 border-b border-black pb-6">
-          <h2 className="text-4xl md:text-5xl font-bold uppercase tracking-tighter text-black">
-            Trending Now
-          </h2>
-          <Link 
-            href="/collections/all" 
-            className="text-xs font-bold uppercase tracking-[0.2em] hover:text-gray-500 transition-colors mt-4 md:mt-0 pb-1"
-          >
-            View All Products
+    <section className="py-20 lg:py-32 px-4 bg-white">
+      <div className="mx-auto max-w-7xl">
+        {/* Section Header */}
+        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-16 gap-6">
+          <div>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-4">
+              Trending Now
+            </h2>
+            <p className="text-lg text-gray-600 max-w-2xl">
+              Discover our most popular pieces loved by fashion enthusiasts worldwide
+            </p>
+          </div>
+          <Link href="/collections/all-products">
+            <Button 
+              variant="outline" 
+              className="border-2 border-black hover:bg-black hover:text-white px-6 py-3 rounded-full font-semibold transition-all"
+            >
+              View All Products →
+            </Button>
           </Link>
         </div>
 
-        {/* Product Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-4 gap-y-12">
-          {products.map((product, index) => (
-            <div
-              key={product.id}
-              className="animate-reveal"
-              style={{
-                animationDelay: `${index * 100}ms`,
-              }}
-            >
-              {/* Note: Ensure your ProductCard component also uses rounded-none for images to match! */}
-              <ProductCard product={product} priority={index < 2} />
-            </div>
-          ))}
-        </div>
+        {/* Product Grid with Loading State */}
+        {loading ? (
+          <ProductGridSkeleton count={4} />
+        ) : products.length === 0 ? (
+          <div className="text-center py-12">
+            <p className="text-gray-500 text-lg">No trending products available</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+            {products.map((product, index) => (
+              <div
+                key={product.id}
+                className="animate-reveal"
+                style={{
+                  animationDelay: `${index * 100}ms`,
+                }}
+              >
+                <ProductCard product={product} priority={index < 2} />
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );
