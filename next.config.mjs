@@ -8,13 +8,17 @@ const nextConfig = {
         hostname: 'cdn.shopify.com',
         pathname: '/s/files/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+        port: '',
+        pathname: '/**',
+      },
     ],
   },
   experimental: {
     optimizePackageImports: ['@headlessui/react', '@heroicons/react'],
   },
-  // Enable strict mode for better development experience
-  reactStrictMode: true,
 };
 
 export default nextConfig;
