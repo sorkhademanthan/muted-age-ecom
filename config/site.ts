@@ -1,26 +1,59 @@
+/**
+ * Site-wide configuration and metadata
+ * Used for SEO, social sharing, and general site information
+ */
+
 export const siteConfig = {
   name: 'Muted Age',
-  description:
-    'Premium fashion and lifestyle brand offering curated collections of minimalist designs and exceptional quality.',
-  url:
-    process.env.NEXT_PUBLIC_SITE_URL || 'https://www.mutedage.com',
-  ogImage: 'https://www.mutedage.com/og-image.jpg',
+  description: 'Premium fashion and lifestyle brand offering curated collections',
+  url: process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000',
+  ogImage: '/og-image.jpg',
+
   links: {
     instagram: 'https://instagram.com/mutedage',
+    facebook: 'https://facebook.com/mutedage',
     twitter: 'https://twitter.com/mutedage',
   },
-  keywords: [
-    'premium fashion',
-    'lifestyle brand',
-    'minimalist design',
-    'curated collections',
-    'sustainable fashion',
-  ],
-  creator: 'Muted Age',
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL || 'https://www.mutedage.com'
-  ),
-} as const;
+
+  creator: {
+    name: 'Muted Age',
+    url: 'https://mutedage.com',
+  },
+
+  // Shopify configuration
+  shopify: {
+    storeDomain: process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN || '',
+    storefrontAccessToken:
+      process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN || '',
+    apiVersion: '2024-01',
+  },
+
+  // Contact information
+  contact: {
+    email: 'support@mutedage.com',
+    phone: '+1 (555) 123-4567',
+  },
+
+  // Default SEO metadata
+  defaultSEO: {
+    title: 'Muted Age - Premium Fashion & Lifestyle',
+    description:
+      'Discover curated collections of premium fashion and lifestyle products at Muted Age. Minimalist designs, exceptional quality.',
+    keywords: [
+      'premium fashion',
+      'lifestyle brand',
+      'minimalist design',
+      'curated collections',
+    ],
+  },
+};
+
+export type SiteConfig = typeof siteConfig;
+
+/**
+ * Shop configuration
+ * Used for managing shop settings, currency, locale, etc.
+ */
 
 export const shopConfig = {
   currency: 'USD',
@@ -33,6 +66,11 @@ export const shopConfig = {
   enableReviews: false,
   enableSubscriptions: false,
 } as const;
+
+/**
+ * Navigation configuration
+ * Used for managing navigation menus in the header and footer
+ */
 
 export const navConfig = {
   mainNav: [

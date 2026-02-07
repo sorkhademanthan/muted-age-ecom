@@ -1,6 +1,25 @@
 import Image from "next/image";
+// Test path alias - this should work now!
+import { testMessage, greet } from "@/lib/utils/test";
+import { cn } from "@/lib/utils/cn";
+import { siteConfig } from "@/config/site";
+import { CURRENCY } from "@/config/constants";
 
 export default function Home() {
+  // This will only show in browser console (public variables)
+  console.log("Store Domain:", process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN);
+  console.log(
+    "Public Token:",
+    process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN
+  );
+
+  // Test TypeScript functions
+  console.log(testMessage);
+  console.log(greet("Muted Age Developer"));
+
+  console.log("Site Config:", siteConfig.name);
+  console.log("Currency:", CURRENCY.symbol);
+
   return (
     <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
       <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
@@ -58,6 +77,75 @@ export default function Home() {
           >
             Documentation
           </a>
+        </div>
+        <div className="text-center space-y-4">
+          <h1 className="text-4xl font-bold mb-4 text-brand-primary">
+            {siteConfig.name}
+          </h1>
+          <p className="text-lg text-brand-muted mb-8">
+            {siteConfig.description}
+          </p>
+
+          {/* Test custom Tailwind colors */}
+          <div
+            className={cn(
+              "border border-brand-accent rounded-lg p-4 max-w-md mx-auto",
+              "bg-gradient-to-br from-white to-brand-accent/10"
+            )}
+          >
+            <p className="text-sm font-semibold text-brand-primary mb-2">
+              ✅ Tailwind Custom Theme
+            </p>
+            <p className="text-xs text-brand-muted">Brand colors configured</p>
+            <p className="text-xs text-brand-muted mt-1">
+              Currency: {CURRENCY.symbol} {CURRENCY.code}
+            </p>
+          </div>
+
+          {/* Previous test boxes */}
+          <div className="bg-green-50 border border-green-200 rounded-lg p-4 max-w-md mx-auto">
+            <p className="text-sm font-semibold text-green-800 mb-2">
+              ✅ Environment Variables Loaded
+            </p>
+            <p className="text-xs text-green-600">
+              Store: {process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN}
+            </p>
+            <p className="text-xs text-green-600 mt-1">
+              Token:{" "}
+              {process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN?.substring(
+                0,
+                10
+              )}
+              ...
+            </p>
+          </div>
+
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 max-w-md mx-auto">
+            <p className="text-sm font-semibold text-blue-800 mb-2">
+              ✅ Next.js Config Updated
+            </p>
+            <p className="text-xs text-blue-600">
+              Shopify CDN images are now supported
+            </p>
+            <p className="text-xs text-blue-600 mt-1">
+              Image optimization enabled
+            </p>
+          </div>
+
+          <div className="bg-purple-50 border border-purple-200 rounded-lg p-4 max-w-md mx-auto">
+            <p className="text-sm font-semibold text-purple-800 mb-2">
+              ✅ TypeScript Config Updated
+            </p>
+            <p className="text-xs text-purple-600">
+              Path aliases: @/lib, @/components, etc.
+            </p>
+            <p className="text-xs text-purple-600 mt-1">
+              Test: {testMessage}
+            </p>
+            <p className="text-xs text-purple-600 mt-1">
+              Greeting: {greet("TypeScript")}
+            </p>
+          </div>
         </div>
       </main>
     </div>
