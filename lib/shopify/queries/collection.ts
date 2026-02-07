@@ -20,26 +20,52 @@ export const COLLECTION_FRAGMENT = `
 `;
 
 export const GET_COLLECTION_BY_HANDLE = `
-  query getCollectionByHandle($handle: String!, $first: Int = 12) {
+  query getCollectionByHandle($handle: String!, $first: Int = 24, $sortKey: ProductCollectionSortKeys) {
     collection(handle: $handle) {
       ...CollectionFragment
-      products(first: $first) {
+      products(first: $first, sortKey: $sortKey) {
         edges {
           node {
             id
             title
             handle
+            description
+            availableForSale
             priceRange {
               minVariantPrice {
                 amount
                 currencyCode
               }
+              maxVariantPrice {
+                amount
+                currencyCode
+              }
             }
-            images(first: 1) {
+            images(first: 2) {
               edges {
                 node {
+                  id
                   url
                   altText
+                  width
+                  height
+                }
+              }
+            }
+            variants(first: 1) {
+              edges {
+                node {
+                  id
+                  title
+                  availableForSale
+                  price {
+                    amount
+                    currencyCode
+                  }
+                  compareAtPrice {
+                    amount
+                    currencyCode
+                  }
                 }
               }
             }
@@ -47,6 +73,8 @@ export const GET_COLLECTION_BY_HANDLE = `
         }
         pageInfo {
           hasNextPage
+          hasPreviousPage
+          startCursor
           endCursor
         }
       }

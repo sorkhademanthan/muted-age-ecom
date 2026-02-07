@@ -27,7 +27,7 @@ export function ProductGrid({ products, columns = 4 }: ProductGridProps) {
         <ProductCard
           key={product.id}
           product={product}
-          priority={index < 4} // Prioritize first 4 images
+          priority={index < 4}
         />
       ))}
     </div>

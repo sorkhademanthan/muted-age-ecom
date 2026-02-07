@@ -25,14 +25,14 @@ export function HeroSection() {
         
         {/* CTA Buttons - Sharp & Minimal */}
         <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mt-12">
-          <Link href="/collections/all">
+          <Link href="/collections/all-products">
             <Button 
               className="bg-white text-black hover:bg-neutral-200 rounded-none px-12 py-7 text-xs font-bold tracking-[0.2em] uppercase transition-all duration-500"
             >
               Shop Collection
             </Button>
           </Link>
-          <Link href="/about">
+          <Link href="/collections/featured">
             <Button 
               variant="outline" 
               className="border border-white/30 text-white hover:bg-white hover:text-black rounded-none px-12 py-7 text-xs font-bold tracking-[0.2em] uppercase backdrop-blur-sm transition-all duration-500"

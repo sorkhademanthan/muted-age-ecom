@@ -97,26 +97,51 @@ export function Header() {
               Account
             </Link>
 
-            {/* Cart Trigger */}
-            <button
-              onClick={toggleCart}
-              className="flex items-center gap-2 group"
+            {/* Cart - Now links to /cart page */}
+            <Link 
+              href="/cart"
+              className="relative p-2 text-gray-700 hover:text-black transition-colors group flex items-center justify-center"
               aria-label="Shopping cart"
             >
-              <span className="hidden lg:block text-[10px] uppercase tracking-widest font-bold group-hover:opacity-50 transition-opacity">
-                Bag ({itemCount})
-              </span>
-              
-              {/* Mobile Icon Only */}
-              <div className="relative lg:hidden">
-                <ShoppingBagIcon className="h-6 w-6" strokeWidth={1} />
-                {mounted && itemCount > 0 && (
-                  <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-black text-[9px] font-medium text-white">
-                    {itemCount}
-                  </span>
-                )}
-              </div>
-            </button>
+              <ShoppingBagIcon className="h-6 w-6" strokeWidth={1.5} />
+              {mounted && itemCount > 0 && (
+                <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-black text-[10px] font-medium text-white">
+                  {itemCount > 9 ? '9+' : itemCount}
+                </span>
+              )}
+            </Link>
+          </div>
+
+          {/* Desktop Navigation */}
+          <div className="hidden lg:flex lg:gap-10 lg:absolute lg:left-1/2 lg:-translate-x-1/2">
+            <Link
+              href="/collections/all-products"
+              className="text-sm font-medium text-gray-700 hover:text-black transition-colors relative group"
+            >
+              Shop All
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-black transition-all group-hover:w-full" />
+            </Link>
+            <Link
+              href="/collections/mens"
+              className="text-sm font-medium text-gray-700 hover:text-black transition-colors relative group"
+            >
+              Men
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-black transition-all group-hover:w-full" />
+            </Link>
+            <Link
+              href="/collections/womens"
+              className="text-sm font-medium text-gray-700 hover:text-black transition-colors relative group"
+            >
+              Women
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-black transition-all group-hover:w-full" />
+            </Link>
+            <Link
+              href="/collections/accessories"
+              className="text-sm font-medium text-gray-700 hover:text-black transition-colors relative group"
+            >
+              Accessories
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-black transition-all group-hover:w-full" />
+            </Link>
           </div>
 
         </div>

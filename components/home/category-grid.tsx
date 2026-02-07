@@ -3,28 +3,28 @@ import Image from 'next/image';
 
 const categories = [
     {
-        name: 'Men',
-        href: '/collections/men',
+        name: 'Featured',
+        href: '/collections/featured', // ✅ Real: "featured"
         image: 'https://images.unsplash.com/photo-1617127365659-c47fa864d8bc?w=800&h=1000&fit=crop',
-        subtitle: 'Ready to Wear',
+        subtitle: 'Best Sellers',
+    },
+    {
+        name: 'All Products',
+        href: '/collections/all-products', // ✅ Real: "all-products" (not "all")
+        image: 'https://images.unsplash.com/photo-1617137968427-85924c800a22?w=800&h=1000&fit=crop',
+        subtitle: 'Shop Everything',
+    },
+    {
+        name: 'Men',
+        href: '/collections/mens', // ✅ Real: "mens" (not "men")
+        image: 'https://images.unsplash.com/photo-1523206485979-ba07796f3143?w=800&h=1000&fit=crop',
+        subtitle: 'For Him',
     },
     {
         name: 'Women',
-        href: '/collections/women',
-        image: 'https://images.unsplash.com/photo-1617137968427-85924c800a22?w=800&h=1000&fit=crop',
-        subtitle: 'The New Silhouette',
-    },
-    {
-        name: 'Accessories',
-        href: '/collections/accessories',
-        image: 'https://images.unsplash.com/photo-1523206485979-ba07796f3143?w=800&h=1000&fit=crop',
-        subtitle: 'Essentials',
-    },
-    {
-        name: 'Archive',
-        href: '/collections/archive',
+        href: '/collections/womens', // ✅ Real: "womens" (not "women")
         image: 'https://images.unsplash.com/photo-1520975661595-6453be3f7070?w=800&h=1000&fit=crop',
-        subtitle: 'Previous Seasons',
+        subtitle: 'For Her',
     },
 ];
 
