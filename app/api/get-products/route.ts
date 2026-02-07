@@ -10,18 +10,8 @@ export async function GET() {
       cache: 'no-store',
     });
 
-    const products = data.products.edges.map((edge: any) => ({
-      id: edge.node.id,
-      title: edge.node.title,
-      handle: edge.node.handle,
-      price: edge.node.priceRange.minVariantPrice.amount,
-      variants: edge.node.variants.edges.map((v: any) => ({
-        id: v.node.id,
-        title: v.node.title,
-        price: v.node.price.amount,
-        availableForSale: v.node.availableForSale,
-      })),
-    }));
+    // Return the full product structure
+    const products = data.products.edges.map((edge: any) => edge.node);
 
     return NextResponse.json({
       success: true,
@@ -38,3 +28,4 @@ export async function GET() {
     );
   }
 }
+   
