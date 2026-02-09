@@ -2,15 +2,26 @@ import { NextResponse } from 'next/server';
 import { shopifyFetch } from '@/lib/shopify/client';
 import { GET_COLLECTIONS } from '@/lib/shopify/queries/collection';
 
+interface CollectionNode {
+  id: string;
+  title: string;
+  handle: string;
+  description: string;
+}
+
 export async function GET() {
   try {
-    const data = await shopifyFetch<any>({
+    const data = await shopifyFetch<{
+      collections: {
+        edges: Array<{ node: CollectionNode }>;
+      };
+    }>({
       query: GET_COLLECTIONS,
       variables: { first: 20 },
       cache: 'no-store',
     });
 
-    const collections = data.collections.edges.map((edge: any) => ({
+    const collections = data.collections.edges.map((edge) => ({
       id: edge.node.id,
       title: edge.node.title,
       handle: edge.node.handle,

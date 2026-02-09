@@ -180,6 +180,12 @@ export const useCartStore = create<CartState>()(
           });
 
           if (data.cartLinesRemove.userErrors?.length > 0) {
+            // If cart doesn't exist, clear it and create new one
+            if (data.cartLinesRemove.userErrors[0].message.includes('does not exist')) {
+              console.log('Cart expired, clearing...');
+              set({ cart: null, isLoading: false });
+              return;
+            }
             throw new Error(data.cartLinesRemove.userErrors[0].message);
           }
 
@@ -191,9 +197,8 @@ export const useCartStore = create<CartState>()(
         } catch (error) {
           const errorMessage =
             error instanceof Error ? error.message : 'Failed to remove item';
-          set({ error: errorMessage, isLoading: false });
+          set({ error: errorMessage, isLoading: false, cart: null }); // Clear cart on error
           console.error('Remove from cart error:', error);
-          throw error;
         }
       },
 
